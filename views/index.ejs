@@ -1,0 +1,39 @@
+<%- include('partials/header') %>
+
+<body>
+    <header>
+        <h2>mongoDB exercise</h2>
+    </header>
+    <main>
+        
+        <h3>Create User</h3>        
+        <form action="/addUser" method="POST">
+            <h4>1</h4>
+            <input type="text" name="name" placeholder="Name" value="Ashley Buchanan" required>
+            <input type="email" name="email" placeholder="Email" value="aneatemail@someplace.com" required>
+            <button type="submit">Add User</button>
+        </form>
+
+        <h3>Read (1-6)</h3>
+        <form action="/getMoviesByDirector" method="POST">                              <!-- this POST is intentional -->
+            <h4>1</h4>
+            <input type="text" name="directorName" placeholder="Director's Name" value="Christopher Nolan" required>
+            <button type="submit">Find Movies</button>
+        </form>
+
+        <form action="/getMoviesByGenre" method="POST">                                 <!-- this POST is intentional -->
+            <h4>2</h4>
+            <input type="text" name="genre" placeholder="Genre" value="Action" required>
+            <button type="submit">Find Movies</button>
+        </form>
+
+        <form action="/getMoviesByIMDB" method="POST">                                  <!-- this POST is intentional -->
+            <h4>3</h4>
+            <input type="text" name="imdbRating" placeholder="IMDB Rating" value="8" required>
+            <button type="submit">Find Movies</button>
+        </form>
+    </main>
+</body>
+</html>
+
+
