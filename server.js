@@ -3,7 +3,17 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
-import { getAllUsers, addUser, getMoviesByDirector, getMoviesByGenre, getMoviesByIMDB } from "./db/queries.js";
+import { 
+    getAllUsers, 
+    addUser, 
+    getMoviesByDirector, 
+    getMoviesByGenre, 
+    getMoviesByIMDB, 
+    getMoviesByActorsNames, 
+    getMoviesByOnlyActorsNames,
+    updateMovieAvailability,
+    updateMovieMetacritic
+} from "./db/queries.js";
 
 dotenv.config();
 
@@ -48,9 +58,37 @@ app.post("/getMoviesByGenre", async (req, res) => {
 });
 
 app.post("/getMoviesByIMDB", async (req, res) => {
-    console.log(req.body.imdbRating);
+    //console.log(req.body.imdbRating);
     const movies = await getMoviesByIMDB(req.body.imdbRating);
     movies.forEach(m => { console.log(`--- ${m.title} ${m.imdb.rating}`)});
+    res.redirect("/");
+});
+
+app.post("/getMoviesByActorsNames", async (req, res) => {
+    //console.log(req.body.actorsNames);
+    const movies = await getMoviesByActorsNames(req.body.actorsNames);
+    movies.forEach(m => { console.log(`--- ${m.title} cast: [ ${m.cast} ]`)});
+    res.redirect("/");
+});
+
+app.post("/getMoviesByOnlyActorsNames", async (req, res) => {
+    //console.log(req.body.onlyActorsNames);
+    const movies = await getMoviesByOnlyActorsNames(req.body.onlyActorsNames);
+    movies.forEach(m => { console.log(`--- ${m.title} cast: [ ${m.cast} ]`)});
+    res.redirect("/");
+});
+
+app.post("/updateMovieAvailability", async (req, res) => {
+    //console.log(`${req.body.title} ${req.body.platform}`);
+    const movie = await updateMovieAvailability(req.body.title, req.body.platform);
+    console.log(movie);
+    res.redirect("/");
+});
+
+app.post("/updateMovieMetacritic", async (req, res) => {
+    //console.log(`${req.body.title} ${req.body.value}`);
+    const movie = await updateMovieMetacritic(req.body.title, req.body.value);
+    console.log(movie);
     res.redirect("/");
 });
 

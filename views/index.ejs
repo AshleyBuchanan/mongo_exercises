@@ -32,6 +32,40 @@
             <input type="text" name="imdbRating" placeholder="IMDB Rating" value="8" required>
             <button type="submit">Find Movies</button>
         </form>
+
+        <form action="/getMoviesByActorsNames" method="POST">                           <!-- this POST is intentional -->
+            <h4>4</h4>
+            <input type="text" name="actorsNames" placeholder="Movies including Actors' Names, separated with a comma" value="Tom Hanks, Tim Allen" required>
+            <button type="submit">Find Movies</button>
+        </form>
+
+        <form action="/getMoviesByOnlyActorsNames" method="POST">                       <!-- this POST is intentional -->
+            <h4>5</h4>
+            <input type="text" name="onlyActorsNames" placeholder="Movies with only Actors' Names, separated with a comma" value="Tom Hanks, Tim Allen" required>
+            <button type="submit">Find Movies</button>
+        </form>
+
+        <form action="/getMoviesByDirectorAndGenre" method="POST">                      <!-- this POST is intentional -->
+            <h4>6</h4>
+            <input type="text" name="genre" placeholder="Genre" value="Comedy" required>
+            <input type="text" name="directorName" placeholder="Director's Name" value="Steven Spielberg" required>
+            <button type="submit">Find Movies</button>
+        </form>
+
+        <h3>Update (1-4)</h3>
+        <form action="/updateMovieAvailability" method="POST">                          <!-- this POST is intentional -->
+            <h4>1</h4>
+            <input type="text" name="title" placeholder="Title" value="The Matrix" required>
+            <input type="text" name="platform" placeholder="Available on what Platforms, separated with a comma" value="Sflix" required>
+            <button type="submit">Update Movie</button>
+        </form>
+
+        <form action="/updateMovieMetacritic" method="POST">                           <!-- this POST is intentional -->
+            <h4>2</h4>
+            <input type="text" name="title" placeholder="Title" value="The Matrix" required>
+            <input type="text" name="value" placeholder="Increment by what Value" value="1" required>
+            <button type="submit">Update Movie</button>
+        </form>
     </main>
 </body>
 </html>

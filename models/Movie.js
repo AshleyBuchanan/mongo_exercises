@@ -3,7 +3,10 @@ import mongoose from "mongoose";
 const movieSchema = new mongoose.Schema({
     title: String,
     directors: Array,
-    imdb: Object
+    imdb: Object,
+    cast: Array,
+    available_on: Array,
+    metacritic: Number
 });
 
 export default mongoose.model("Movie", movieSchema);
