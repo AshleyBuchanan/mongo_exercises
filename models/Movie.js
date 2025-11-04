@@ -6,7 +6,9 @@ const movieSchema = new mongoose.Schema({
     imdb: Object,
     cast: Array,
     available_on: Array,
-    metacritic: Number
+    metacritic: Number,
+    genres: Array,
+    year: Number
 });
 
 export default mongoose.model("Movie", movieSchema);

@@ -1,5 +1,6 @@
 import Movie from "../models/Movie.js";
 import User from "../models/User.js";
+import Comment from "../models/Comment.js";
 
 export async function getAllUsers() {
     try {
@@ -82,6 +83,20 @@ export async function getMoviesByOnlyActorsNames(onlyActorsNames) {
     }
 }
 
+export async function getMoviesByDirectorAndGenre(genre, directorName) {
+    console.log(`-- searching for: ${genre} movies by ${directorName}`);
+    try {
+        const movies = await Movie.find({
+            genres: genre,
+            directors: directorName
+        });
+        return movies;
+    } catch (err) {
+        console.log('! error getting genre and directorName', err);
+        return [];
+    }
+}
+
 export async function updateMovieAvailability(title, platform) {
     const onPlatforms = platform.split(',').map(p => p.trim());
     console.log(`-- updating ${title}'s availability on ${onPlatforms}`);
@@ -111,4 +126,63 @@ export async function updateMovieMetacritic(title, value) {
     }
 }
 
+export async function updateMovieGenres(year, genres) {
+    const addGenres = genres.split(',').map(g => g.trim());
+    console.log(`-- updating movies from ${year} genres with ${addGenres}`);
+    try {
+        const movies = await Movie.updateMany(
+            { year },
+            { $addToSet: { genres: { $each: addGenres } } }
+        );
+        return movies;
+    } catch (err) {
+        console.log(`! error updating movies' genres: ${err}`);
+        return null;
+    }
+}
+
+export async function updateMovieIMDBRating(imdbRating, value) {
+    console.log(`-- updating movies with imdbRating of ${imdbRating} or less, by ${value}`);
+    try {
+        const movies = await Movie.updateMany(
+            { "imdb.rating": { $lt: Number(imdbRating) }},
+            { $inc: { "imdb.rating": Number(value) }}
+        );
+        return movies;
+    } catch (err) {
+        console.log(`! error updating movies' imdbRating: ${err}`);
+        return null;
+    }
+}
+
+export async function deleteMovieById(_id) {
+    console.log(`-- deleting movie with ${_id}`);
+    try {
+        const movie = await Movie.deleteOne(
+            { _id: _id }
+        );
+        return movie;
+    } catch (err) {
+        console.log(`! error deleting movie: ${err}`);
+        return null;
+    }
+}
+
+export async function deleteAllMovieComments(title) {
+    console.log(`-- deleting all ${title}'s comments.`);
+    try {
+        const movie = await Movie.findOne(
+            { title: title }
+        );
+        console.log(movie.id)
+        const comments = await Comment.deleteMany(
+            { movie_id: movie._id }
+        );
+
+        return comments;
+    } catch (err) {
+        console.log(`! error deleting movie: ${err}`);
+        return null;
+    }
+}
 

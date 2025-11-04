@@ -21,12 +21,30 @@ body {
     border: 2px solid white;
 }
 
+main {
+    border: 2px solid orange;
+    display: flex;
+    height: 100%;
+}
+
+#left-side,
+#right-side {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid green;
+    flex: 0 0 48%;
+    /* justify-content: space-between; */
+    height: 99%;
+    margin: 0 1%;
+}
+
 form {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     
     display: flex;
     gap: 0.5rem;
     border: 2px dashed white;
+    height: 32px;
 }
 
 input {
@@ -35,15 +53,16 @@ input {
 }
 
 button {
-    width: 100px;
+    width: 124px;
 }
 
 h2 {
     text-align: center;
+    margin: 8px 0 0 0;
 }
 
 h3 {
-    margin-top: 2rem;
+    margin: 16px 0 0 0;
 }
 
 h4 { 

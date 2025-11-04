@@ -11,8 +11,13 @@ import {
     getMoviesByIMDB, 
     getMoviesByActorsNames, 
     getMoviesByOnlyActorsNames,
+    getMoviesByDirectorAndGenre,
     updateMovieAvailability,
-    updateMovieMetacritic
+    updateMovieMetacritic, 
+    updateMovieGenres,
+    updateMovieIMDBRating,
+    deleteMovieById,
+    deleteAllMovieComments
 } from "./db/queries.js";
 
 dotenv.config();
@@ -78,6 +83,13 @@ app.post("/getMoviesByOnlyActorsNames", async (req, res) => {
     res.redirect("/");
 });
 
+app.post("/getMoviesByDirectorAndGenre", async (req, res) => {
+    //console.log(`${req.body.genre} ${req.body.directorName}`);
+    const movies = await getMoviesByDirectorAndGenre(req.body.genre, req.body.directorName);
+    movies.forEach(m => { console.log(`--- ${m.title} cast: [ ${m.cast} ]`)});
+    res.redirect("/");
+});
+
 app.post("/updateMovieAvailability", async (req, res) => {
     //console.log(`${req.body.title} ${req.body.platform}`);
     const movie = await updateMovieAvailability(req.body.title, req.body.platform);
@@ -88,6 +100,34 @@ app.post("/updateMovieAvailability", async (req, res) => {
 app.post("/updateMovieMetacritic", async (req, res) => {
     //console.log(`${req.body.title} ${req.body.value}`);
     const movie = await updateMovieMetacritic(req.body.title, req.body.value);
+    console.log(movie);
+    res.redirect("/");
+});
+
+app.post("/updateMovieGenres", async (req, res) => {
+    //console.log(`${req.body.year} ${req.body.genres}`);
+    const movies = await updateMovieGenres(req.body.year, req.body.genres);
+    console.log(movies);
+    res.redirect("/");
+});
+
+app.post("/updateMovieIMDBRating", async (req, res) => {
+    //console.log(`${req.body.imdbRating} ${req.body.value}`);
+    const movies = await updateMovieIMDBRating(req.body.imdbRating, req.body.value);
+    console.log(movies);
+    res.redirect("/");
+});
+
+app.post("/deleteMovieById", async (req, res) => {
+    console.log(req.body._id);
+    const movie = await deleteMovieById(req.body._id);
+    console.log(movie);
+    res.redirect("/");
+});
+
+app.post("/deleteAllMovieComments", async (req, res) => {
+    console.log(req.body.title);
+    const movie = await deleteAllMovieComments(req.body.title);
     console.log(movie);
     res.redirect("/");
 });
