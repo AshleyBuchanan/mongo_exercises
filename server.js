@@ -17,7 +17,10 @@ import {
     updateMovieGenres,
     updateMovieIMDBRating,
     deleteMovieById,
-    deleteAllMovieComments
+    deleteAllMovieComments,
+    deleteAllMoviesWithNoGenres,
+    aggregateMoviesPerYear,
+    aggregateAverageIMDBRatingsByDirector
 } from "./db/queries.js";
 
 dotenv.config();
@@ -119,16 +122,37 @@ app.post("/updateMovieIMDBRating", async (req, res) => {
 });
 
 app.post("/deleteMovieById", async (req, res) => {
-    console.log(req.body._id);
+    //console.log(req.body._id);
     const movie = await deleteMovieById(req.body._id);
     console.log(movie);
     res.redirect("/");
 });
 
 app.post("/deleteAllMovieComments", async (req, res) => {
-    console.log(req.body.title);
+    //console.log(req.body.title);
     const movie = await deleteAllMovieComments(req.body.title);
     console.log(movie);
+    res.redirect("/");
+});
+
+app.post("/deleteAllMoviesWithNoGenres", async (req, res) => {
+    //console.log('no genres');
+    const movies = await deleteAllMoviesWithNoGenres();
+    console.log(movies);
+    res.redirect("/");
+});
+
+app.post("/aggregateMoviesPerYear", async (req, res) => {
+    //console.log('aggregate movies per year');
+    const movies = await aggregateMoviesPerYear();
+    console.log(movies);
+    res.redirect("/");
+});
+
+app.post("/aggregateAverageIMDBRatingsByDirector", async (req, res) => {
+    console.log('aggregate average imdb.rating by directors names');
+    const movies = await aggregateAverageIMDBRatingsByDirector();
+    console.log(movies);
     res.redirect("/");
 });
 

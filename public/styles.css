@@ -18,11 +18,9 @@ body {
 
     display: flex;
     flex-direction: column;
-    border: 2px solid white;
 }
 
 main {
-    border: 2px solid orange;
     display: flex;
     height: 100%;
 }
@@ -31,9 +29,7 @@ main {
 #right-side {
     display: flex;
     flex-direction: column;
-    border: 2px solid green;
     flex: 0 0 48%;
-    /* justify-content: space-between; */
     height: 99%;
     margin: 0 1%;
 }
@@ -42,8 +38,8 @@ form {
     margin-top: 0.5rem;
     
     display: flex;
+    justify-content: space-between;
     gap: 0.5rem;
-    border: 2px dashed white;
     height: 32px;
 }
 
@@ -58,11 +54,11 @@ button {
 
 h2 {
     text-align: center;
-    margin: 8px 0 0 0;
+    margin: 24px 0;
 }
 
 h3 {
-    margin: 16px 0 0 0;
+    margin: 32px 0 0 0;
 }
 
 h4 { 
